@@ -1,9 +1,23 @@
 #!/bin/bash
 
 #Author: hkhoshnoud
-#Date: Sep 17th 2023
-#Purpose: New Username and Hostname, New User Sudo Privileges without Password, Copy SSH Key to New User.
+#Date: Sep 23rd 2023
+#Purpose: Change the preserve_hostname: true > false in cloud.cfg, New Username and Hostname, New User Sudo Privileges without Password, Copy SSH Key to New User.
 #Usage: ./setup_aws.sh
+
+function update_preserve_hostname() {
+    local file="/etc/cloud/cloud.cfg"
+    if [ -w "$file" ]; then
+        if grep -q "^preserve_hostname:" "$file"; then
+            sed -i 's/^preserve_hostname: false/preserve_hostname: true/' "$file"
+        else
+            echo "preserve_hostname: true" >> "$file"
+        fi
+        echo "Updated preserve_hostname to true in $file"
+    else
+        echo "Error: $file is not writable. Run the script as a superuser or check file permissions."
+    fi
+}
 
 # Ensure the user is running this script with sudo privileges
 if [[ $EUID -ne 0 ]]; then
@@ -40,5 +54,7 @@ chown -R $NEW_USER:$NEW_USER /home/$NEW_USER/.ssh/
 # Set the hostname
 hostnamectl set-hostname $NEW_HOSTNAME
 
-echo "User and hostname set. Please test by logging in as $NEW_USER and delete it if necessary."
+# Update preserve_hostname to true in /etc/cloud/cloud.cfg
+update_preserve_hostname
 
+echo "User and hostname set. Please test by logging in as $NEW_USER and delete it if necessary."
