@@ -1,7 +1,8 @@
 #!/bin/bash
 
-#Author: hkhoshnoud
+#Author: Hezha
 #Date: Sep 23rd 2023
+#updatedDate: Jan 21st 2024
 #Purpose: Change the preserve_hostname: true > false in cloud.cfg, New Username and Hostname, New User Sudo Privileges without Password, Copy SSH Key to New User.
 #Usage: ./setup_aws.sh
 
@@ -39,7 +40,7 @@ fi
 CURRENT_USER=$(logname)
 
 # Create the new user
-useradd $NEW_USER
+useradd -d $NEW_USER
 
 # Grant the new user sudo permissions without password
 echo "$NEW_USER ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$SUDOERS_FILE
