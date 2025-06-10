@@ -33,7 +33,7 @@ This script is designed to facilitate the initial setup of a newly instantiated 
 
 6. **Remove the default user:**
     ```shell
-    sudo userdel -r [ec2-user]
+    sudo userdel -r ec2-user
     ```
 
 ## Purpose:
