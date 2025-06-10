@@ -40,7 +40,7 @@ fi
 CURRENT_USER=$(logname)
 
 # Create the new user
-useradd -d $NEW_USER
+useradd -m -d /home/$NEW_USER -s /bin/bash $NEW_USER
 
 # Grant the new user sudo permissions without password
 echo "$NEW_USER ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$SUDOERS_FILE
