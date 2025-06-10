@@ -16,11 +16,11 @@ This script is designed to facilitate the initial setup of a newly instantiated 
     ```
 2. **Navigate to the Script Directory:**
     ```shell
-    cd /path/to/script/directory/
+    cd ./ops345
     ```
 3. **Make the Script Executable:**
     ```shell
-    chmod +x setup_aws.sh
+    chmod +x ./setup_aws.sh
     ```
 4. **Execute the Script with Sudo:**
     ```shell
@@ -30,6 +30,11 @@ This script is designed to facilitate the initial setup of a newly instantiated 
    - Enter the desired username.
    - Enter the desired hostname.
    - Follow any additional prompts to complete the setup.
+
+6. **Remove the default user:**
+    ```shell
+    sudo userdel -r [ec2-user]
+    ```
 
 ## Purpose:
 This script is purposed to:
