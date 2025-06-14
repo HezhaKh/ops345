@@ -6,7 +6,7 @@ This script automates the initial setup of a new EC2 instance or Ubuntu server. 
 
 ## Features
 
-- **Cross-Compatible:** Works on both Amazon Linux and Ubuntu (tested on Ubuntu 22.04+ and Amazon Linux 2).
+- **Cross-Compatible:** Works on both Amazon Linux and Ubuntu (tested on Ubuntu 24.04+ and Amazon Linux 2023 kernel-6.1).
 - **User Creation:** Adds a new user with a home directory and bash shell.
 - **Hostname Configuration:** Prompts for and sets a new hostname.
 - **SSH Key Transfer:** Copies `.ssh` keys from the current user to the new user.
@@ -16,7 +16,7 @@ This script automates the initial setup of a new EC2 instance or Ubuntu server. 
 
 ---
 
-## 🔧 Usage
+## Usage
 
 1. **Clone the Repository**
    ```bash
@@ -67,9 +67,6 @@ This script automates the initial setup of a new EC2 instance or Ubuntu server. 
 - The script uses `logname` to identify the current SSH user (e.g., `ubuntu` or `ec2-user`). Make sure you run the script from a valid user shell.
 - If the `.ssh` directory doesn’t exist for the current user, the SSH key copy step will be skipped with a warning.
 - You must run this script with `sudo` or as the `root` user.
-- Tested on:
-  - **Ubuntu 20.04 / 22.04**
-  - **Amazon Linux 2**
 
 ---
 
