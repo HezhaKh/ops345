@@ -43,7 +43,7 @@ fi
 #----------------------------
 # Ensure sudo is installed (for minimal images) [Most of the OS today comes with sudo installed]
 #----------------------------
-if ! command -v sudo &> /dev/null; then
+#if ! command -v sudo &> /dev/null; then
 #    echo "sudo not found. Attempting to install..."
 #    if [ -f /etc/debian_version ]; then
 #        apt update && apt install -y sudo
