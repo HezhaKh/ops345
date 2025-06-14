@@ -58,7 +58,7 @@ This script automates the initial setup of a new EC2 instance or Ubuntu server. 
 - Assigns `NOPASSWD:ALL` sudo permission to the new user.
 - Sets the hostname using `hostnamectl`.
 - Edits `/etc/cloud/cloud.cfg` to ensure hostname persists across reboots.
-- Conditionally installs `sudo` using `apt` (Ubuntu) or `yum` (Amazon Linux) if not present.
+- Conditionally installs `sudo` using `apt` (Ubuntu) or `dnf` (Amazon Linux) if not present.
 
 ---
 
