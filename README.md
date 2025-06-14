@@ -1,50 +1,80 @@
-# AWS EC2 Initial Setup Script
+# AWS EC2 & Ubuntu Initial Setup Script
 
-This script is designed to facilitate the initial setup of a newly instantiated AWS EC2 instance. It allows for a secure and swift transition from the default EC2 user setup by automating several setup tasks.
+This script automates the initial setup of a new EC2 instance or Ubuntu server. It allows for a secure and streamlined transition from the default system user to a custom setup, including user creation, hostname setting, and SSH key transfer.
 
-## Features:
-- **User and Hostname Setup:** Prompts for and sets up a new username and a desired hostname.
-- **SSH Key Configuration:** Dynamically determines the current logged-in user to copy SSH key configurations to the new user.
-- **Sudo Permissions:** Creates a new user and grants it sudo permissions without needing a password.
-- **Hostname Configuration:** Allows setting up a custom hostname for the instance.
-- **Preserve Hostname Modification:** Modifies `/etc/cloud/cloud.cfg` to set `preserve_hostname`.
+---
 
-## Usage:
-1. **Clone this Repository:**
-    ```shell
-    git clone https://github.com/HezhaKh/ops345.git
-    ```
-2. **Navigate to the Script Directory:**
-    ```shell
-    cd ./ops345
-    ```
-3. **Make the Script Executable:**
-    ```shell
-    chmod +x ./setup_aws.sh
-    ```
-4. **Execute the Script with Sudo:**
-    ```shell
-    sudo ./setup_aws.sh
-    ```
-5. **Follow On-Screen Prompts:**
-   - Enter the desired username.
-   - Enter the desired hostname.
-   - Follow any additional prompts to complete the setup.
+## Features
 
-6. **Remove the default user:**
-    ```shell
-    sudo userdel -r ec2-user
-    ```
+- **Cross-Compatible:** Works on both Amazon Linux and Ubuntu (tested on Ubuntu 22.04+ and Amazon Linux 2).
+- **User Creation:** Adds a new user with a home directory and bash shell.
+- **Hostname Configuration:** Prompts for and sets a new hostname.
+- **SSH Key Transfer:** Copies `.ssh` keys from the current user to the new user.
+- **Passwordless Sudo:** Grants new user `sudo` access without requiring a password.
+- **Preserve Hostname Setting:** Modifies `/etc/cloud/cloud.cfg` to ensure the custom hostname persists after reboot.
+- **Sudo Check & Auto-Install:** Ensures `sudo` is installed (for minimal Ubuntu/Amazon Linux images).
 
-## Purpose:
-This script is purposed to:
-- Verify root/sudo privileges.
-- Gather inputs for new username, hostname, and sudoers filename.
-- Set up a new user with sudo privileges without a password and with the correct permissions.
-- Copy SSH key configurations from the current user to the new user.
-- Apply the new hostname.
-- Modify `preserve_hostname` in `/etc/cloud/cloud.cfg`.
-- Provide a completion message with further instructions or actions.
+---
 
-## Final Note:
-Make sure to test the new user setup and configurations after the completion of the script and adjust as necessary.
+## 🔧 Usage
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/HezhaKh/ops345.git
+   ```
+
+2. **Navigate to the Script Directory**
+   ```bash
+   cd ./ops345
+   ```
+
+3. **Make the Script Executable**
+   ```bash
+   chmod +x ./setup_aws.sh
+   ```
+
+4. **Run the Script as Root or with Sudo**
+   ```bash
+   sudo ./setup_aws.sh
+   ```
+
+5. **Follow the Prompts**
+   - Enter a **new username** (e.g., `admin`).
+   - Enter a **custom hostname** (e.g., `myserver01`).
+   - Optionally enter a **sudoers file name** (default is `10-ops345-users`).
+
+6. **(Optional)** Remove the Default EC2 User
+   ```bash
+   sudo userdel -r ec2-user
+   ```
+
+---
+
+##  Script Breakdown
+
+- Verifies root/sudo privileges before continuing.
+- Prompts for and creates a new user.
+- Transfers SSH keys from the current user.
+- Assigns `NOPASSWD:ALL` sudo permission to the new user.
+- Sets the hostname using `hostnamectl`.
+- Edits `/etc/cloud/cloud.cfg` to ensure hostname persists across reboots.
+- Conditionally installs `sudo` using `apt` (Ubuntu) or `yum` (Amazon Linux) if not present.
+
+---
+
+## ⚠ Notes
+
+- The script uses `logname` to identify the current SSH user (e.g., `ubuntu` or `ec2-user`). Make sure you run the script from a valid user shell.
+- If the `.ssh` directory doesn’t exist for the current user, the SSH key copy step will be skipped with a warning.
+- You must run this script with `sudo` or as the `root` user.
+- Tested on:
+  - **Ubuntu 20.04 / 22.04**
+  - **Amazon Linux 2**
+
+---
+
+## Final Tip
+
+After setup, test logging in as the new user. Once confirmed, you can safely remove the default EC2 or Ubuntu user.
+
+---
