@@ -62,7 +62,7 @@ This script automates the initial setup of a new EC2 instance or Ubuntu server. 
 
 ---
 
-## ⚠ Notes
+## Notes
 
 - The script uses `logname` to identify the current SSH user (e.g., `ubuntu` or `ec2-user`). Make sure you run the script from a valid user shell.
 - If the `.ssh` directory doesn’t exist for the current user, the SSH key copy step will be skipped with a warning.
